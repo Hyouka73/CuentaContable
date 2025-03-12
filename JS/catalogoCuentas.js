@@ -47,11 +47,14 @@ export let catalogoCuentas = [
     { codigo: '4.1.6', nombre: 'Gastos de Venta', tipo: 'gastos' },
     { codigo: '4.1.7', nombre: 'Gastos de Administración', tipo: 'gastos' },
     { codigo: '4.1.8', nombre: 'Otros Gastos', tipo: 'gastos' },
+    { codigo: '4.1.9', nombre: 'Pérdidas por Deterioro de Activos', tipo: 'gastos' },
     { codigo: '5.1.1', nombre: 'Ventas', tipo: 'ingresos' },
     { codigo: '5.1.2', nombre: 'Devoluciones sobre Compra', tipo: 'ingresos' },
     { codigo: '5.1.3', nombre: 'Rebajas sobre Compra', tipo: 'ingresos' },
     { codigo: '5.1.4', nombre: 'Descuentos sobre Compra', tipo: 'ingresos' },
-    { codigo: '5.1.5', nombre: 'Otros Ingresos', tipo: 'ingresos' }
+    { codigo: '5.1.5', nombre: 'Otros Ingresos', tipo: 'ingresos' },
+    { codigo: '5.1.6', nombre: 'IVA Trasladado', tipo: 'ingresos' },
+    { codigo: '5.1.7', nombre: 'IVA por Trasladar', tipo: 'ingresos' }
 ];
 
 export function buscarCuentasPorCodigo(codigo) {
@@ -157,7 +160,21 @@ export function actualizarSeleccionCuentas() {
         opcionVacia.textContent = 'Seleccionar cuenta...';
         select.appendChild(opcionVacia);
         
-        const cuentasOrdenadas = [...catalogoCuentas].sort((a, b) => a.codigo.localeCompare(b.codigo));
+        // Función de comparación personalizada
+        const cuentasOrdenadas = [...catalogoCuentas].sort((a, b) => {
+            const partesA = a.codigo.split('.').map(Number);
+            const partesB = b.codigo.split('.').map(Number);
+            
+            for (let i = 0; i < Math.max(partesA.length, partesB.length); i++) {
+                const parteA = partesA[i] || 0;
+                const parteB = partesB[i] || 0;
+                
+                if (parteA < parteB) return -1;
+                if (parteA > parteB) return 1;
+            }
+            
+            return 0;
+        });
         
         const tipos = {
             'activo': 'Activo',
