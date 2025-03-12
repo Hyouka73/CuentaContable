@@ -1,0 +1,256 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  margin-right: 5px;
+  border-radius: 5px 5px 0 0;
+}
+
+.tab.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-row {
+  display: flex;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.cuentas-t {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.cuenta-t {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.cuenta-t-header {
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+.cuenta-t-body {
+  display: flex;
+}
+
+.cuenta-t-debe, .cuenta-t-haber {
+  width: 50%;
+  padding: 10px;
+}
+
+.cuenta-t-debe {
+  border-right: 1px solid #ddd;
+}
+
+.cuenta-t-item {
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cuenta-t-debe .cuenta-t-item .operacion-ref {
+  order: -1; /* Mueve el índice al lado izquierdo */
+}
+
+.cuenta-t-debe .operacion-ref {
+  margin-right: auto; /* Alinea el índice a la izquierda */
+}
+
+.cuenta-t-haber .operacion-ref {
+  margin-left: auto; /* Alinea el índice a la derecha */
+}
+
+.cuenta-t-total {
+  border-top: 1px solid #ddd;
+  padding-top: 5px;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  margin-top: 5px;
+}
+
+.success {
+  color: green;
+  margin-top: 5px;
+}
+
+.numeric-cell {
+  text-align: right;
+}
+
+.registro-row {
+  background-color: #f8f9fa;
+}
+
+.btn-remove {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn-remove:hover {
+  background-color: #bd2130;
+}
+
+.totales-row {
+  font-weight: bold;
+  background-color: #e9ecef;
+}
+
+.cuenta-group {
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+}
+
+.cuenta-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+.operacion-item {
+  margin-bottom: 2rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+
+.operacion-header {
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+  font-weight: bold;
+}
+
+.fila-debe {
+  background-color: #fff8e1;
+}
+
+.fila-haber {
+  background-color: #e8f5e9;
+}
+
+.fila-descripcion {
+  background-color: #f5f5f5;
+  font-style: italic;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}

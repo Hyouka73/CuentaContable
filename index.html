@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Registro Contable</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Registro Contable</h1>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="diario">Libro Diario</div>
+            <div class="tab" data-tab="mayor">Libro Mayor (Cuentas T)</div>
+            <div class="tab" data-tab="balanza">Balanza de Comprobación</div>
+            <div class="tab" data-tab="catalogo">Catálogo de Cuentas</div>
+        </div>
+        
+        <div id="diario" class="tab-content active">
+            <h2>Registro de Operaciones (Libro Diario)</h2>
+            
+            <div class="form-group">
+                <div class="form-row">
+                    <div style="flex: 1;">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" required>
+                    </div>
+                    <div style="flex: 3;">
+                        <label for="descripcion">Descripción de la operación:</label>
+                        <input type="text" id="descripcion" placeholder="Descripción breve de la operación">
+                    </div>
+                </div>
+            </div>
+            
+            <table id="registro-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Cuenta</th>
+                        <th style="width: 25%;">Debe</th>
+                        <th style="width: 25%;">Haber</th>
+                        <th style="width: 20%;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="registro-body">
+                    <tr>
+                        <td>
+                            <select class="cuenta-select">
+                                <!-- Se llenará con JavaScript -->
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" class="debe-input" step="0.01" min="0" placeholder="0.00">
+                        </td>
+                        <td>
+                            <input type="number" class="haber-input" step="0.01" min="0" placeholder="0.00">
+                        </td>
+                        <td>
+                            <button type="button" class="btn-remove">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="totales-row">
+                        <td>Totales:</td>
+                        <td id="total-debe-registro" class="numeric-cell">0.00</td>
+                        <td id="total-haber-registro" class="numeric-cell">0.00</td>
+                        <td>
+                            <button type="button" id="agregar-fila">+ Agregar Cuenta</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            
+            <div id="mensaje-error" class="error"></div>
+            <div id="mensaje-exito" class="success"></div>
+            
+            <div class="form-group">
+                <button type="button" id="guardar-operacion">Guardar Operación</button>
+            </div>
+            
+            <h3>Operaciones Registradas</h3>
+            <div id="operaciones-container">
+                <!-- Se llenará con JavaScript -->
+            </div>
+        </div>
+        
+        <div id="mayor" class="tab-content">
+            <h2>Libro Mayor (Cuentas T)</h2>
+            <div class="cuentas-t" id="cuentas-t-container">
+                <!-- Se llenará con JavaScript -->
+            </div>
+        </div>
+        
+        <div id="balanza" class="tab-content">
+            <h2>Balanza de Comprobación</h2>
+            <table id="balanza-table">
+                <thead>
+                    <tr>
+                        <th>Cuenta</th>
+                        <th>Debe</th>
+                        <th>Haber</th>
+                        <th>Saldo Deudor</th>
+                        <th>Saldo Acreedor</th>
+                    </tr>
+                </thead>
+                <tbody id="balanza-body">
+                    <!-- Se llenará con JavaScript -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th id="total-debe" class="numeric-cell">0.00</th>
+                        <th id="total-haber" class="numeric-cell">0.00</th>
+                        <th id="total-deudor" class="numeric-cell">0.00</th>
+                        <th id="total-acreedor" class="numeric-cell">0.00</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        
+        <div id="catalogo" class="tab-content">
+            <h2>Catálogo de Cuentas</h2>
+            <div class="form-group">
+                <div class="form-row">
+                    <div style="flex: 1;">
+                        <label for="nueva-cuenta-codigo">Código:</label>
+                        <input type="text" id="nueva-cuenta-codigo" placeholder="Código de la cuenta">
+                    </div>
+                    <div style="flex: 2;">
+                        <label for="nueva-cuenta-nombre">Nombre:</label>
+                        <input type="text" id="nueva-cuenta-nombre" placeholder="Nombre de la cuenta">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="nueva-cuenta-tipo">Tipo:</label>
+                        <select id="nueva-cuenta-tipo">
+                            <option value="activo">Activo</option>
+                            <option value="pasivo">Pasivo</option>
+                            <option value="capital">Capital</option>
+                            <option value="ingresos">Ingresos</option>
+                            <option value="gastos">Gastos</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1; align-self: flex-end;">
+                        <button type="button" id="agregar-cuenta">Agregar Cuenta</button>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div style="flex: 1;">
+                        <label for="busqueda-codigo">Buscar por Código:</label>
+                        <input type="text" id="busqueda-codigo" placeholder="Ej: 1.1">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="busqueda-nombre">Buscar por Nombre:</label>
+                        <input type="text" id="busqueda-nombre" placeholder="Ej: Caja">
+                    </div>
+                    <div style="flex: 1; align-self: flex-end;">
+                        <button id="btn-buscar" class="btn btn-primary">Buscar</button>
+                        <button id="btn-limpiar" class="btn btn-secondary">Limpiar</button>
+                    </div>
+                </div>
+            </div>
+            <div id="catalogo-container">
+                <!-- Se llenará con JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./JS/main.js"></script>
+</body>
+</html>
