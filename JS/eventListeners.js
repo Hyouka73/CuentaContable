@@ -1,10 +1,25 @@
-import { agregarFilaOperacion, guardarOperacion, configurarBotonesEliminar, configurarInputsDebeHaber } from './operaciones.js';
+import { agregarFilaOperacion, guardarOperacion, limpiarFormulario, configurarBotonesEliminar, configurarInputsDebeHaber } from './registroOperaciones.js';
 import { actualizarCatalogoCuentas, actualizarSeleccionCuentas, agregarCuenta, inicializarBusquedaCatalogo } from './catalogoCuentas.js';
 
 export function configurarEventListeners() {
-    document.getElementById('agregar-fila').addEventListener('click', agregarFilaOperacion);
-    document.getElementById('guardar-operacion').addEventListener('click', guardarOperacion);
-    document.getElementById('agregar-cuenta').addEventListener('click', agregarCuenta);
+    const agregarFilaBtn = document.getElementById('agregar-fila');
+    const guardarOperacionBtn = document.getElementById('guardar-operacion');
+    const agregarCuentaBtn = document.getElementById('agregar-cuenta');
+    const limpiarFormularioBtn = document.getElementById('limpiar-formulario');
+
+    if (agregarFilaBtn) {
+        agregarFilaBtn.addEventListener('click', agregarFilaOperacion);
+    }
+    if (guardarOperacionBtn) {
+        guardarOperacionBtn.addEventListener('click', guardarOperacion);
+    }
+    if (agregarCuentaBtn) {
+        agregarCuentaBtn.addEventListener('click', agregarCuenta);
+    }
+    if (limpiarFormularioBtn) {
+        limpiarFormularioBtn.addEventListener('click', limpiarFormulario);
+    }
+
     configurarBotonesEliminar();
     configurarInputsDebeHaber();
     inicializarBusquedaCatalogo();

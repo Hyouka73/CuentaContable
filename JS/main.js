@@ -1,6 +1,8 @@
 import { actualizarCatalogoCuentas, actualizarSeleccionCuentas } from './catalogoCuentas.js';
+import { actualizarBalanza } from './balanza.js';
+import { actualizarCuentasT } from './cuentasT.js';
 import { configurarEventListeners } from './eventListeners.js';
-import { actualizarTotalesRegistro, actualizarCuentasT, actualizarBalanza } from './operaciones.js';
+import { actualizarTotalesRegistro } from './registroOperaciones.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar pestañas
