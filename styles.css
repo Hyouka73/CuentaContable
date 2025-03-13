@@ -254,3 +254,52 @@ button:hover {
 .mb-4 {
   margin-bottom: 1.5rem;
 }
+
+.tabla-balance-general {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla-balance-general th, .tabla-balance-general td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.tabla-balance-general th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+.subtabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.subtabla th, .subtabla td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.subtabla th {
+    background-color: #e9ecef;
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.balance-header {
+    font-weight: bold;
+    color: #333;
+}
+
+.balance-subheader {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+.balance-group {
+    margin-bottom: 20px;
+}

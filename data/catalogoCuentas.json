@@ -1,0 +1,157 @@
+{
+    "1.1.1": {
+        "nombre": "Caja",
+        "debe": [
+            {
+                "valor": 1000000,
+                "indice": 1
+            }
+        ],
+        "haber": [
+            {
+                "valor": 7500,
+                "indice": 2
+            },
+            {
+                "valor": 2500,
+                "indice": 4
+            },
+            {
+                "valor": 2900,
+                "indice": 5
+            },
+            {
+                "valor": 580,
+                "indice": 6
+            }
+        ]
+    },
+    "1.2.1": {
+        "nombre": "Terrenos",
+        "debe": [
+            {
+                "valor": 700000,
+                "indice": 1
+            }
+        ],
+        "haber": []
+    },
+    "1.2.2": {
+        "nombre": "Edificios",
+        "debe": [
+            {
+                "valor": 200000,
+                "indice": 1
+            }
+        ],
+        "haber": []
+    },
+    "1.2.3": {
+        "nombre": "Mobiliario y Equipo",
+        "debe": [
+            {
+                "valor": 325000,
+                "indice": 1
+            }
+        ],
+        "haber": []
+    },
+    "3.1.1": {
+        "nombre": "Capital Social",
+        "debe": [],
+        "haber": [
+            {
+                "valor": 2225000,
+                "indice": 1
+            }
+        ]
+    },
+    "1.1.4": {
+        "nombre": "Inversiones Temporales",
+        "debe": [
+            {
+                "valor": 6465.51,
+                "indice": 2
+            },
+            {
+                "valor": 5000,
+                "indice": 3
+            },
+            {
+                "valor": 10948.28,
+                "indice": 4
+            }
+        ],
+        "haber": []
+    },
+    "1.1.8": {
+        "nombre": "Deudores",
+        "debe": [
+            {
+                "valor": 1034.49,
+                "indice": 2
+            },
+            {
+                "valor": 344.83,
+                "indice": 4
+            },
+            {
+                "valor": 400,
+                "indice": 5
+            },
+            {
+                "valor": 80,
+                "indice": 6
+            }
+        ],
+        "haber": []
+    },
+    "1.1.9": {
+        "nombre": "Anticipo a Proveedores",
+        "debe": [
+            {
+                "valor": 800,
+                "indice": 3
+            },
+            {
+                "valor": 1406.89,
+                "indice": 4
+            }
+        ],
+        "haber": []
+    },
+    "2.1.1": {
+        "nombre": "Proveedores",
+        "debe": [],
+        "haber": [
+            {
+                "valor": 5800,
+                "indice": 3
+            },
+            {
+                "valor": 10200,
+                "indice": 4
+            }
+        ]
+    },
+    "1.1.6": {
+        "nombre": "Clientes",
+        "debe": [
+            {
+                "valor": 2500,
+                "indice": 5
+            }
+        ],
+        "haber": []
+    },
+    "1.1.7": {
+        "nombre": "Documentos por Cobrar",
+        "debe": [
+            {
+                "valor": 500,
+                "indice": 6
+            }
+        ],
+        "haber": []
+    }
+}

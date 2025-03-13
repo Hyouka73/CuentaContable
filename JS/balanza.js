@@ -1,42 +1,47 @@
+import { catalogoCuentas } from './catalogoCuentas.js';
+import { movimientosPorCuenta } from './cuentasT.js';
 import { formatearNumero } from './utils.js';
-import { operaciones } from './operaciones.js';
 
 export function actualizarBalanza() {
     const balanzaBody = document.getElementById('balanza-body');
+    const totalDebeElem = document.getElementById('total-debe');
+    const totalHaberElem = document.getElementById('total-haber');
+    const totalDeudorElem = document.getElementById('total-deudor');
+    const totalAcreedorElem = document.getElementById('total-acreedor');
+
     balanzaBody.innerHTML = '';
+    let totalDebe = 0;
+    let totalHaber = 0;
+    let totalDeudor = 0;
+    let totalAcreedor = 0;
 
-    // Calcular totales por cuenta
-    const totales = {};
+    catalogoCuentas.forEach(cuenta => {
+        const movimientos = movimientosPorCuenta(cuenta.codigo);
+        const saldo = movimientos.debe - movimientos.haber;
 
-    operaciones.forEach(op => {
-        op.detalle.forEach(item => {
-            if (!totales[item.cuenta]) {
-                totales[item.cuenta] = { debe: 0, haber: 0 };
+        if (movimientos.debe > 0 || movimientos.haber > 0) {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${cuenta.codigo} - ${cuenta.nombre}</td>
+                <td class="text-right">${formatearNumero(movimientos.debe)}</td>
+                <td class="text-right">${formatearNumero(movimientos.haber)}</td>
+                <td class="text-right">${saldo > 0 ? formatearNumero(saldo) : ''}</td>
+                <td class="text-right">${saldo < 0 ? formatearNumero(Math.abs(saldo)) : ''}</td>
+            `;
+            balanzaBody.appendChild(fila);
+
+            totalDebe += movimientos.debe;
+            totalHaber += movimientos.haber;
+            if (saldo > 0) {
+                totalDeudor += saldo;
+            } else {
+                totalAcreedor += Math.abs(saldo);
             }
-            totales[item.cuenta].debe += item.debe;
-            totales[item.cuenta].haber += item.haber;
-        });
+        }
     });
 
-    // Mostrar totales en la tabla
-    for (const [cuenta, { debe, haber }] of Object.entries(totales)) {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-            <td>${cuenta}</td>
-            <td class="numeric-cell">${formatearNumero(debe)}</td>
-            <td class="numeric-cell">${formatearNumero(haber)}</td>
-            <td class="numeric-cell">${formatearNumero(debe - haber > 0 ? debe - haber : 0)}</td>
-            <td class="numeric-cell">${formatearNumero(haber - debe > 0 ? haber - debe : 0)}</td>
-        `;
-        balanzaBody.appendChild(fila);
-    }
-
-    // Calcular totales generales
-    const totalDebe = Object.values(totales).reduce((acc, { debe }) => acc + debe, 0);
-    const totalHaber = Object.values(totales).reduce((acc, { haber }) => acc + haber, 0);
-
-    document.getElementById('total-debe').textContent = formatearNumero(totalDebe);
-    document.getElementById('total-haber').textContent = formatearNumero(totalHaber);
-    document.getElementById('total-deudor').textContent = formatearNumero(totalDebe - totalHaber > 0 ? totalDebe - totalHaber : 0);
-    document.getElementById('total-acreedor').textContent = formatearNumero(totalHaber - totalDebe > 0 ? totalHaber - totalDebe : 0);
+    totalDebeElem.textContent = formatearNumero(totalDebe);
+    totalHaberElem.textContent = formatearNumero(totalHaber);
+    totalDeudorElem.textContent = formatearNumero(totalDeudor);
+    totalAcreedorElem.textContent = formatearNumero(totalAcreedor);
 }

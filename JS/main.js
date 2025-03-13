@@ -3,6 +3,8 @@ import { actualizarBalanza } from './balanza.js';
 import { actualizarCuentasT } from './cuentasT.js';
 import { configurarEventListeners } from './eventListeners.js';
 import { actualizarTotalesRegistro } from './registroOperaciones.js';
+import { mostrarOperaciones } from './operaciones.js';
+import { generarBalanceGeneral } from './balance.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar pestañas
@@ -10,12 +12,15 @@ document.addEventListener('DOMContentLoaded', function() {
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const tabId = tab.getAttribute('data-tab');
+            const tabContent = document.getElementById(tabId);
+            if (!tabContent) return; // Ensure the tab content exists
+
             // Cambiar pestaña activa
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
             tab.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+            tabContent.classList.add('active');
             
             // Actualizar contenido si es necesario
             if (tabId === 'mayor') {
@@ -24,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 actualizarBalanza();
             } else if (tabId === 'catalogo') {
                 actualizarCatalogoCuentas();
+            } else if (tabId === 'balance') {
+                generarBalanceGeneral();
             }
         });
     });
@@ -40,4 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Actualizar totales iniciales
     actualizarTotalesRegistro();
+
+    // Mostrar operaciones iniciales
+    mostrarOperaciones();
 });

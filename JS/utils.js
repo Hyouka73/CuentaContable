@@ -1,5 +1,5 @@
 export function formatearNumero(numero) {
-    return numero.toFixed(2);
+    return numero.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 export function mostrarError(mensaje) {

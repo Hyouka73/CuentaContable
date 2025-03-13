@@ -43,7 +43,7 @@ export function actualizarCuentasT() {
             }
         });
     });
-
+    console.log(movimientosPorCuenta);
     // Crear las cuentas T solo para las cuentas con movimientos
     Object.entries(movimientosPorCuenta).forEach(([codigo, cuenta]) => {
         // Solo mostrar cuentas que tengan al menos un movimiento
@@ -94,4 +94,20 @@ export function actualizarCuentasT() {
         cuentaT.appendChild(body);
         cuentasTContainer.appendChild(cuentaT);
     });
+}
+
+export function movimientosPorCuenta(codigoCuenta) {
+    const movimientos = { debe: 0, haber: 0 };
+
+    operaciones.forEach(op => {
+        op.detalle.forEach(det => {
+            if (det.cuenta === codigoCuenta) {
+                movimientos.debe += det.debe;
+                movimientos.haber += det.haber;
+            }
+        });
+    });
+    console.log(movimientos);
+
+    return movimientos;
 }

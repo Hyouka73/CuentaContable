@@ -5,8 +5,163 @@ import { agregarFilaOperacion, configurarBotonesEliminar, configurarInputsDebeHa
 import { actualizarCuentasT } from './cuentasT.js';
 import { actualizarBalanza } from './balanza.js';
 
-export let operaciones = [];
-export let contadorIndice = 0;
+export let operaciones = [
+    {
+        "indice": 1,
+        "fecha": "2025-01-01",
+        "descripcion": "Inicio de operaciones",
+        "detalle": [
+            {
+                "cuenta": "1.1.1",
+                "debe": 1000000,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.2.1",
+                "debe": 700000,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.2.2",
+                "debe": 200000,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.2.8",
+                "debe": 325000,
+                "haber": 0
+            },
+            {
+                "cuenta": "3.1.1",
+                "debe": 0,
+                "haber": 2225000
+            }
+        ]
+    },
+    {
+        "indice": 2,
+        "fecha": "2025-01-02",
+        "descripcion": "Compra en efectivo",
+        "detalle": [
+            {
+                "cuenta": "1.1.5",
+                "debe": 6465.51,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.10",
+                "debe": 1034.49,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.1",
+                "debe": 0,
+                "haber": 7500
+            }
+        ]
+    },
+    {
+        "indice": 3,
+        "fecha": "2025-01-03",
+        "descripcion": "Compra de mercancia crédito",
+        "detalle": [
+            {
+                "cuenta": "1.1.5",
+                "debe": 5000,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.10",
+                "debe": 800,
+                "haber": 0
+            },
+            {
+                "cuenta": "2.1.1",
+                "debe": 0,
+                "haber": 5800
+            }
+        ]
+    },
+    {
+        "indice": 4,
+        "fecha": "2025-01-12",
+        "descripcion": "Compra parcial a crédito",
+        "detalle": [
+            {
+                "cuenta": "1.1.5",
+                "debe": 10948.28,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.10",
+                "debe": 344.83,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.11",
+                "debe": 1406.89,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.1",
+                "debe": 0,
+                "haber": 2500
+            },
+            {
+                "cuenta": "2.1.1",
+                "debe": 0,
+                "haber": 10200
+            }
+        ]
+    },
+    {
+        "indice": 5,
+        "fecha": "2025-01-15",
+        "descripcion": "Rentas pagadas por anticipado",
+        "detalle": [
+            {
+                "cuenta": "1.3.4",
+                "debe": 2500,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.10",
+                "debe": 400,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.1",
+                "debe": 0,
+                "haber": 2900
+            }
+        ]
+    },
+    {
+        "indice": 6,
+        "fecha": "2025-01-19",
+        "descripcion": "Compra de papeleria",
+        "detalle": [
+            {
+                "cuenta": "1.3.1",
+                "debe": 500,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.10",
+                "debe": 80,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.1",
+                "debe": 0,
+                "haber": 580
+            }
+        ]
+    }
+];
+
+export let contadorIndice = operaciones.length; // Initialize contadorIndice based on initial operations
+
 export function incrementarIndice() {
     contadorIndice++;
     return contadorIndice;
