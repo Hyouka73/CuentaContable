@@ -32,6 +32,7 @@ export function generarBalanceGeneral() {
 
         if (saldo !== 0) {
             const subtipo = subtipoMap[cuenta.codigo];
+            
             if (cuenta.tipo === 'activo') {
                 if (subtipo === 'circulante') {
                     balanceData.activo.circulante.push({ cuenta, saldo });
@@ -39,20 +40,26 @@ export function generarBalanceGeneral() {
                     balanceData.activo.noCirculante.push({ cuenta, saldo });
                 }
             } else if (cuenta.tipo === 'pasivo') {
-                if (subtipo === 'cortoPlazo') {
-                    balanceData.pasivo.cortoPlazo.push({ cuenta, saldo });
+                // Para cuentas de IVA y otros pasivos
+                if (subtipo === 'cortoPlazo' || cuenta.nombre.includes('IVA')) {
+                    balanceData.pasivo.cortoPlazo.push({ cuenta, saldo: -saldo });
                 } else if (subtipo === 'largoPlazo') {
-                    balanceData.pasivo.largoPlazo.push({ cuenta, saldo });
+                    balanceData.pasivo.largoPlazo.push({ cuenta, saldo: -saldo });
                 }
             } else if (cuenta.tipo === 'capital') {
                 if (subtipo === 'contribuido') {
-                    balanceData.capital.contribuido.push({ cuenta, saldo });
+                    balanceData.capital.contribuido.push({ cuenta, saldo: -saldo });
                 } else if (subtipo === 'ganado') {
-                    balanceData.capital.ganado.push({ cuenta, saldo });
+                    balanceData.capital.ganado.push({ cuenta, saldo: -saldo });
                 }
+            } else if (cuenta.tipo === 'ingresos') {
+                balanceData.capital.ganado.push({ cuenta, saldo: -saldo });
+            } else if (cuenta.tipo === 'gastos') {
+                balanceData.capital.ganado.push({ cuenta, saldo: -saldo });
             }
         }
     });
+    console.log(balanceData);
 
     // Crear la tabla principal
     const tabla = document.createElement('table');

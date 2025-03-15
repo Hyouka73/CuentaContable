@@ -53,8 +53,8 @@ export let catalogoCuentas = [
     { codigo: '5.1.3', nombre: 'Rebajas sobre Compra', tipo: 'ingresos' },
     { codigo: '5.1.4', nombre: 'Descuentos sobre Compra', tipo: 'ingresos' },
     { codigo: '5.1.5', nombre: 'Otros Ingresos', tipo: 'ingresos' },
-    { codigo: '5.1.6', nombre: 'IVA Trasladado', tipo: 'ingresos' },
-    { codigo: '5.1.7', nombre: 'IVA por Trasladar', tipo: 'ingresos' }
+    { codigo: '5.1.6', nombre: 'IVA Trasladado', tipo: 'pasivo', subtipo: 'cortoPlazo' },
+    { codigo: '5.1.7', nombre: 'IVA por Trasladar', tipo: 'pasivo', subtipo: 'cortoPlazo'}
 ];
 
 export function buscarCuentasPorCodigo(codigo) {

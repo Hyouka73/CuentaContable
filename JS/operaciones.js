@@ -157,6 +157,28 @@ export let operaciones = [
                 "haber": 580
             }
         ]
+    },
+    {
+        "indice": 7,
+        "fecha": "2025-01-25",
+        "descripcion": "Anticipo de clientes",
+        "detalle": [
+            {
+                "cuenta": "1.1.1",
+                "debe": 11484,
+                "haber": 0
+            },
+            {
+                "cuenta": "2.1.5",
+                "debe": 0,
+                "haber": 9900
+            },
+            {
+                "cuenta": "5.1.6",
+                "debe": 0,
+                "haber": 1584
+            }
+        ]
     }
 ];
 
