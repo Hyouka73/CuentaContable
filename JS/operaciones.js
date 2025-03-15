@@ -179,7 +179,160 @@ export let operaciones = [
                 "haber": 1584
             }
         ]
-    }
+    },{
+        "indice": 8,
+        "fecha": "2025-02-11",
+        "descripcion": "Ventas",
+        "detalle": [
+            {
+                "cuenta": "1.1.3",
+                "debe": 24000,
+                "haber": 0
+            },
+            {
+                "cuenta": "5.1.1",
+                "debe": 0,
+                "haber": 20160
+            },
+            {
+                "cuenta": "5.1.6",
+                "debe": 0,
+                "haber": 3840
+            }
+        ]
+    },
+    {
+        "indice": 9,
+        "fecha": "2025-02-11",
+        "descripcion": "Costo de ventas",
+        "detalle": [
+            {
+                "cuenta": "4.1.13",
+                "debe": 8965.51,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.5",
+                "debe": 0,
+                "haber": 8965.51
+            }
+        ]
+    },
+    {
+        "indice": 10,
+        "fecha": "2025-02-14",
+        "descripcion": "Ajuste por la renta del mes",
+        "detalle": [
+            {
+                "cuenta": "4.1.10",
+                "debe": 2500,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.3.4",
+                "debe": 0,
+                "haber": 2500
+            }
+        ]
+    },
+    {
+        "indice": 11,
+        "fecha": "2025-02-19",
+        "descripcion": "Ajuste por el gasto de papelería",
+        "detalle": [
+            {
+                "cuenta": "4.1.10",
+                "debe": 250,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.3.1",
+                "debe": 0,
+                "haber": 250
+            }
+        ]
+    },
+    {
+        "indice": 12,
+        "fecha": "2025-03-02",
+        "descripcion": "Cancelacion del adelanto y venta a credito",
+        "detalle": [
+            {
+                "cuenta": "1.1.6",
+                "debe": 3516,
+                "haber": 0
+            },
+            {
+                "cuenta": "2.1.5",
+                "debe": 9900,
+                "haber": 0
+            },
+            {
+                "cuenta": "5.1.6",
+                "debe": 1584,
+                "haber": 0
+            },
+            {
+                "cuenta": "5.1.1",
+                "debe": 0,
+                "haber": 12931.03
+            },
+            {
+                "cuenta": "5.1.6",
+                "debe": 0,
+                "haber": 1584
+            },
+            {
+                "cuenta": "5.1.7",
+                "debe": 0,
+                "haber": 484.97
+            }
+        ]
+    },
+    {
+        "indice": 13,
+        "fecha": "2025-03-02",
+        "descripcion": "Costo de lo vendido",
+        "detalle": [
+            {
+                "cuenta": "4.1.13",
+                "debe": 13448.28,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.1.5",
+                "debe": 0,
+                "haber": 10948.28
+            },
+            {
+                "cuenta": "1.1.5",
+                "debe": 0,
+                "haber": 2500
+            }
+        ]
+    },
+    {
+        "indice": 14,
+        "fecha": "2025-04-10",
+        "descripcion": "Depreciación de activos",
+        "detalle": [
+            {
+                "cuenta": "4.1.10",
+                "debe": 7604.16,
+                "haber": 0
+            },
+            {
+                "cuenta": "1.2.9",
+                "debe": 0,
+                "haber": 833.34
+            },
+            {
+                "cuenta": "1.2.13",
+                "debe": 0,
+                "haber": 6770.82
+            }
+        ]
+    },
 ];
 
 export let contadorIndice = operaciones.length; // Initialize contadorIndice based on initial operations

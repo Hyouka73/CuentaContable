@@ -1,8 +1,34 @@
 import { catalogoCuentas } from './catalogoCuentas.js';
-import { movimientosPorCuenta } from './cuentasT.js';
-import { formatearNumero } from './utils.js';
+import { formatearNumero, obtenerSaldoCuenta } from './utils.js';
+import { utilidadNetaTotal, calcularUtilidad } from './estados.js';
+
+// Función mejorada para manejar depreciaciones
+function obtenerActivoConDepreciacion(cuenta) {
+    const depreciacionMap = {
+        'Edificios': '1.2.9',
+        'Mobiliario y Equipo': '1.2.10',
+        'Equipo de Cómputo Electrónico': '1.2.11',
+        'Equipo de Transporte': '1.2.12',
+        'Herramientas': '1.2.13',
+        'Maquinaria': '1.2.14'
+    };
+
+    let saldo = obtenerSaldoCuenta(cuenta.codigo);
+    
+    // Si es un activo depreciable, restar su depreciación
+    const codigoDepreciacion = depreciacionMap[cuenta.nombre];
+    if (codigoDepreciacion) {
+        const depreciacion = obtenerSaldoCuenta(codigoDepreciacion);
+        saldo -= Math.abs(depreciacion);
+    }
+    
+    return saldo;
+}
 
 export function generarBalanceGeneral() {
+    // Calcular utilidad antes de generar el balance
+    calcularUtilidad();
+
     const balanceContainer = document.getElementById('balance-container');
     balanceContainer.innerHTML = '';
     
@@ -27,11 +53,21 @@ export function generarBalanceGeneral() {
     }, {});
 
     catalogoCuentas.forEach(cuenta => {
-        const movimientos = movimientosPorCuenta(cuenta.codigo);
-        const saldo = movimientos.debe - movimientos.haber;
+        // Excluir cuentas de depreciación acumulada
+        if (cuenta.codigo.match(/^1\.2\.[9-9][0-9]$/)) return;
+        if (cuenta.tipo === 'ingresos' || cuenta.tipo === 'gastos') return;
+
+        let saldo;
+        if (cuenta.tipo === 'activo') {
+            saldo = obtenerActivoConDepreciacion(cuenta);
+            if (saldo <= 0) return; // No mostrar activos totalmente depreciados
+        } else {
+            saldo = obtenerSaldoCuenta(cuenta.codigo);
+        }
 
         if (saldo !== 0) {
             const subtipo = subtipoMap[cuenta.codigo];
+            saldo = Math.abs(saldo);
             
             if (cuenta.tipo === 'activo') {
                 if (subtipo === 'circulante') {
@@ -39,26 +75,36 @@ export function generarBalanceGeneral() {
                 } else if (subtipo === 'noCirculante') {
                     balanceData.activo.noCirculante.push({ cuenta, saldo });
                 }
-            } else if (cuenta.tipo === 'pasivo') {
-                // Para cuentas de IVA y otros pasivos
-                if (subtipo === 'cortoPlazo' || cuenta.nombre.includes('IVA')) {
-                    balanceData.pasivo.cortoPlazo.push({ cuenta, saldo: -saldo });
-                } else if (subtipo === 'largoPlazo') {
-                    balanceData.pasivo.largoPlazo.push({ cuenta, saldo: -saldo });
+            } else if (cuenta.tipo === 'pasivo' || cuenta.tipo === 'capital') {
+                if (cuenta.tipo === 'pasivo') {
+                    if (subtipo === 'cortoPlazo' || cuenta.nombre.includes('IVA')) {
+                        balanceData.pasivo.cortoPlazo.push({ cuenta, saldo });
+                    } else if (subtipo === 'largoPlazo') {
+                        balanceData.pasivo.largoPlazo.push({ cuenta, saldo });
+                    }
+                } else {
+                    if (subtipo === 'contribuido') {
+                        balanceData.capital.contribuido.push({ cuenta, saldo });
+                    } else if (subtipo === 'ganado') {
+                        balanceData.capital.ganado.push({ cuenta, saldo });
+                    }
                 }
-            } else if (cuenta.tipo === 'capital') {
-                if (subtipo === 'contribuido') {
-                    balanceData.capital.contribuido.push({ cuenta, saldo: -saldo });
-                } else if (subtipo === 'ganado') {
-                    balanceData.capital.ganado.push({ cuenta, saldo: -saldo });
-                }
-            } else if (cuenta.tipo === 'ingresos') {
-                balanceData.capital.ganado.push({ cuenta, saldo: -saldo });
-            } else if (cuenta.tipo === 'gastos') {
-                balanceData.capital.ganado.push({ cuenta, saldo: -saldo });
             }
         }
     });
+
+    // Agregar utilidad/pérdida al capital
+    const utilidadNeta = utilidadNetaTotal();
+    balanceData.capital.ganado.push({
+        cuenta: {
+            codigo: '3.2.1',
+            nombre: utilidadNeta >= 0 ? 'Utilidad del Ejercicio' : 'Pérdida del Ejercicio',
+            tipo: 'capital',
+            subtipo: 'ganado'
+        },
+        saldo: Math.abs(utilidadNeta)
+    });
+
     console.log(balanceData);
 
     // Crear la tabla principal
@@ -117,12 +163,38 @@ export function generarBalanceGeneral() {
 
     balanceContainer.appendChild(tabla);
 
+    function obtenerSaldoAjustado(cuenta, saldo) {
+        const ajustesGastos = {
+            'Rentas Pagadas por Anticipado': () => {
+                const ajusteRenta = obtenerSaldoCuenta('4.1.7'); // Gastos de Administración (incluye Gastos Generales)
+                return saldo - ajusteRenta;
+            },
+            'Papelería y Útiles': () => {
+                const ajustePapeleria = obtenerSaldoCuenta('4.1.7'); // Gastos de Administración (incluye Gastos Generales)
+                return saldo - ajustePapeleria;
+            },
+            'Primas de Seguro': () => {
+                const ajusteSeguro = obtenerSaldoCuenta('4.1.7'); // Gastos de Administración
+                return saldo - ajusteSeguro;
+            }
+        };
+
+        if (ajustesGastos.hasOwnProperty(cuenta.nombre)) {
+            return ajustesGastos[cuenta.nombre]();
+        }
+
+        return obtenerActivoConDepreciacion(cuenta, saldo);
+    }
+
     // Función para llenar una sección con cuentas
     function llenarSeccion(datos, contenedorId) {
         const contenedor = document.getElementById(contenedorId);
         let totalSeccion = 0;
         
         datos.forEach(({ cuenta, saldo }) => {
+            const saldoFinal = cuenta.tipo === 'activo' ? 
+                obtenerSaldoAjustado(cuenta, saldo) : saldo;
+            
             const fila = document.createElement('div');
             fila.className = 'fila-cuenta';
             
@@ -132,18 +204,17 @@ export function generarBalanceGeneral() {
             
             const saldoCuenta = document.createElement('span');
             saldoCuenta.className = 'saldo-cuenta';
-            saldoCuenta.textContent = formatearNumero(Math.abs(saldo));
+            saldoCuenta.textContent = formatearNumero(Math.abs(saldoFinal));
             
             fila.appendChild(nombreCuenta);
             fila.appendChild(saldoCuenta);
             contenedor.appendChild(fila);
             
-            totalSeccion += saldo;
+            totalSeccion += saldoFinal;
         });
         
         return totalSeccion;
     }
-
     // Llenar las secciones con datos
     let totalActivo = 0;
     let totalPasivo = 0;

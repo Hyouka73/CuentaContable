@@ -107,6 +107,5 @@ export function movimientosPorCuenta(codigoCuenta) {
             }
         });
     });
-
     return movimientos;
 }
