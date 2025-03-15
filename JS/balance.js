@@ -105,7 +105,6 @@ export function generarBalanceGeneral() {
         saldo: Math.abs(utilidadNeta)
     });
 
-    console.log(balanceData);
 
     // Crear la tabla principal
     const tabla = document.createElement('table');

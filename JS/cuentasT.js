@@ -43,7 +43,6 @@ export function actualizarCuentasT() {
             }
         });
     });
-    console.log(movimientosPorCuenta);
     // Crear las cuentas T solo para las cuentas con movimientos
     Object.entries(movimientosPorCuenta).forEach(([codigo, cuenta]) => {
         // Solo mostrar cuentas que tengan al menos un movimiento

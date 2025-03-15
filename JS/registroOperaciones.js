@@ -162,7 +162,6 @@ export function guardarOperacion() {
     // Asignar un índice único a la operación
     const nuevaOperacion = { indice: incrementarIndice(), fecha, descripcion, detalle: operacionDetalle };
     operaciones.push(nuevaOperacion);
-    console.log(operaciones);
     mostrarExito('Operación guardada exitosamente.');
     limpiarFormulario();
     actualizarTotalesRegistro();
