@@ -5,6 +5,8 @@ import { configurarEventListeners } from './eventListeners.js';
 import { actualizarTotalesRegistro } from './registroOperaciones.js';
 import { mostrarOperaciones } from './operaciones.js';
 import { generarBalanceGeneral } from './balance.js';
+import { generarEstadoResultados } from './estados.js';
+import { generarEstadoCambiosFlujos } from './cambios.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar pestañas
@@ -31,6 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 actualizarCatalogoCuentas();
             } else if (tabId === 'balance') {
                 generarBalanceGeneral();
+            } else if (tabId === 'estado') {
+                generarEstadoResultados();
+            } else if (tabId === 'cambios') {
+                generarEstadoCambiosFlujos();
             }
         });
     });

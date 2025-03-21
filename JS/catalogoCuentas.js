@@ -25,6 +25,7 @@ export let catalogoCuentas = [
     { codigo: '1.2.13', nombre: 'Depreciación Acumulada de Herramientas', tipo: 'activo', subtipo: 'noCirculante' },
     { codigo: '1.2.14', nombre: 'Depreciación Acumulada de Maquinaria', tipo: 'activo', subtipo: 'noCirculante' },
     { codigo: '1.2.15', nombre: 'Maquinaria', tipo: 'activo', subtipo: 'noCirculante' },
+    { codigo: '1.2.16', nombre: 'Depreciación Acumulada de Propaganda y Publicidad', tipo: 'activo', subtipo: 'noCirculante' },
     { codigo: '1.3.1', nombre: 'Papelería y Útiles', tipo: 'activo', subtipo: 'noCirculante' },
     { codigo: '1.3.2', nombre: 'Propaganda y Publicidad', tipo: 'activo', subtipo: 'noCirculante' },
     { codigo: '1.3.3', nombre: 'Primas de Seguro', tipo: 'activo', subtipo: 'noCirculante' },

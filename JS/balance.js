@@ -2,6 +2,21 @@ import { catalogoCuentas } from './catalogoCuentas.js';
 import { formatearNumero, obtenerSaldoCuenta } from './utils.js';
 import { utilidadNetaTotal, calcularUtilidad } from './estados.js';
 
+export const balanceData = {
+    'activo': {
+        'circulante': [],
+        'noCirculante': []
+    },
+    'pasivo': {
+        'cortoPlazo': [],
+        'largoPlazo': []
+    },
+    'capital': {
+        'contribuido': [],
+        'ganado': []
+    }
+};
+
 // Función mejorada para manejar depreciaciones
 function obtenerActivoConDepreciacion(cuenta) {
     const depreciacionMap = {
@@ -10,7 +25,8 @@ function obtenerActivoConDepreciacion(cuenta) {
         'Equipo de Cómputo Electrónico': '1.2.11',
         'Equipo de Transporte': '1.2.12',
         'Herramientas': '1.2.13',
-        'Maquinaria': '1.2.14'
+        'Maquinaria': '1.2.14',
+        'Propaganda y Publicidad': '1.2.16',
     };
 
     let saldo = obtenerSaldoCuenta(cuenta.codigo);
@@ -31,21 +47,6 @@ export function generarBalanceGeneral() {
 
     const balanceContainer = document.getElementById('balance-container');
     balanceContainer.innerHTML = '';
-    
-    const balanceData = {
-        'activo': {
-            'circulante': [],
-            'noCirculante': []
-        },
-        'pasivo': {
-            'cortoPlazo': [],
-            'largoPlazo': []
-        },
-        'capital': {
-            'contribuido': [],
-            'ganado': []
-        }
-    };
 
     const subtipoMap = catalogoCuentas.reduce((map, cuenta) => {
         map[cuenta.codigo] = cuenta.subtipo;
@@ -104,7 +105,7 @@ export function generarBalanceGeneral() {
         },
         saldo: Math.abs(utilidadNeta)
     });
-
+    console.log("Balance General", balanceData);
 
     // Crear la tabla principal
     const tabla = document.createElement('table');

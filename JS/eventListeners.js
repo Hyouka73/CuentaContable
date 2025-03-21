@@ -21,27 +21,6 @@ export function configurarEventListeners() {
         limpiarFormularioBtn.addEventListener('click', limpiarFormulario);
     }
 
-    // Añadir manejador de eventos para las pestañas
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const tabId = tab.getAttribute('data-tab');
-            
-            // Remover clase active de todas las pestañas y contenidos
-            document.querySelectorAll('.tab, .tab-content').forEach(element => {
-                element.classList.remove('active');
-            });
-            
-            // Activar pestaña y contenido seleccionado
-            tab.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-            
-            // Si se selecciona la pestaña de estado de resultados, generarlo
-            if (tabId === 'estado') {
-                generarEstadoResultados();
-            }
-        });
-    });
 
     configurarBotonesEliminar();
     configurarInputsDebeHaber();

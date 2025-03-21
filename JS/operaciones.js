@@ -24,6 +24,7 @@ export function mostrarOperaciones() {
         operacionesContainer.innerHTML = '<p class="text-center">No hay operaciones registradas.</p>';
         return;
     }
+    console.log("Operaciones Contables", operaciones);
     
     // Generar tabla para cada operación
     operaciones.forEach(op => {
