@@ -7,6 +7,7 @@ import { mostrarOperaciones } from './operaciones.js';
 import { generarBalanceGeneral } from './balance.js';
 import { generarEstadoResultados } from './estados.js';
 import { generarEstadoCambiosFlujos } from './cambios.js';
+import { generarEstadoFlujoEfectivo } from './efectivo.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar pestañas
@@ -37,6 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 generarEstadoResultados();
             } else if (tabId === 'cambios') {
                 generarEstadoCambiosFlujos();
+            } else if (tabId === 'efectivo') {
+                generarEstadoFlujoEfectivo();
             }
         });
     });

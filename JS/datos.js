@@ -64,7 +64,7 @@ export const operacionesIniciales = [
                 "haber": 0
             },
             {
-                "cuenta": "1.1.10",
+                "cuenta": "1.1.11",
                 "debe": 800,
                 "haber": 0
             },
