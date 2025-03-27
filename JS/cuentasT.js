@@ -1,13 +1,14 @@
 import { formatearNumero } from './utils.js';
 import { catalogoCuentas } from './catalogoCuentas.js';
 import { operaciones } from './operaciones.js';
+// Crear objeto para almacenar los movimientos por cuenta
+export let movimientosDeCuentas = {};
 
 export function actualizarCuentasT() {
     const cuentasTContainer = document.getElementById('cuentas-t-container');
     cuentasTContainer.innerHTML = '';
 
-    // Crear objeto para almacenar los movimientos por cuenta
-    const movimientosPorCuenta = {};
+    movimientosDeCuentas = {};
 
     // Recopilar todos los movimientos de las operaciones
     operaciones.forEach(op => {
@@ -15,12 +16,12 @@ export function actualizarCuentasT() {
             const codigoCuenta = item.cuenta;
             
             // Inicializar la cuenta si no existe
-            if (!movimientosPorCuenta[codigoCuenta]) {
+            if (!movimientosDeCuentas[codigoCuenta]) {
                 // Obtener información de la cuenta del catálogo
                 const infoCuenta = catalogoCuentas.find(c => c.codigo === codigoCuenta);
                 if (!infoCuenta) return;
                 
-                movimientosPorCuenta[codigoCuenta] = {
+                movimientosDeCuentas[codigoCuenta] = {
                     nombre: infoCuenta.nombre,
                     debe: [],
                     haber: []
@@ -29,23 +30,23 @@ export function actualizarCuentasT() {
             
             // Agregar movimientos
             if (item.debe > 0) {
-                movimientosPorCuenta[codigoCuenta].debe.push({
+                movimientosDeCuentas[codigoCuenta].debe.push({
                     valor: item.debe,
                     indice: op.indice
                 });
             }
             
             if (item.haber > 0) {
-                movimientosPorCuenta[codigoCuenta].haber.push({
+                movimientosDeCuentas[codigoCuenta].haber.push({
                     valor: item.haber,
                     indice: op.indice
                 });
             }
         });
     });
-    console.log(movimientosPorCuenta);
+    console.log("Cuentas T", movimientosDeCuentas);
     // Crear las cuentas T solo para las cuentas con movimientos
-    Object.entries(movimientosPorCuenta).forEach(([codigo, cuenta]) => {
+    Object.entries(movimientosDeCuentas).forEach(([codigo, cuenta]) => {
         // Solo mostrar cuentas que tengan al menos un movimiento
         if (cuenta.debe.length === 0 && cuenta.haber.length === 0) return;
 
@@ -107,6 +108,5 @@ export function movimientosPorCuenta(codigoCuenta) {
             }
         });
     });
-
     return movimientos;
 }

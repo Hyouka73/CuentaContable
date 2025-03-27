@@ -20,6 +20,9 @@ body {
 h1, h2, h3 {
   color: #333;
 }
+h2 {
+  text-align: center;
+}
 
 .tabs {
   display: flex;
@@ -302,4 +305,39 @@ button:hover {
 
 .balance-group {
     margin-bottom: 20px;
+}
+
+.tabla-estado-resultados {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.tabla-estado-resultados th {
+  background-color: #f5f5f5;
+  padding: 10px;
+  text-align: left;
+}
+
+.tabla-estado-resultados td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.total {
+  font-weight: bold;
+  background-color: #f9f9f9;
+}
+
+.total.final {
+  background-color: #e8f4ff;
+}
+
+.subheader {
+  background-color: #f0f0f0;
+  font-weight: bold;
 }

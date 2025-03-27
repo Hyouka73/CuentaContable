@@ -1,5 +1,6 @@
 import { agregarFilaOperacion, guardarOperacion, limpiarFormulario, configurarBotonesEliminar, configurarInputsDebeHaber } from './registroOperaciones.js';
 import { actualizarCatalogoCuentas, actualizarSeleccionCuentas, agregarCuenta, inicializarBusquedaCatalogo } from './catalogoCuentas.js';
+import { generarEstadoResultados } from './estados.js';
 
 export function configurarEventListeners() {
     const agregarFilaBtn = document.getElementById('agregar-fila');
@@ -19,6 +20,7 @@ export function configurarEventListeners() {
     if (limpiarFormularioBtn) {
         limpiarFormularioBtn.addEventListener('click', limpiarFormulario);
     }
+
 
     configurarBotonesEliminar();
     configurarInputsDebeHaber();

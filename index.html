@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Registro Contable</title>
+    <title>Sistema de Registro Contable - Mr. Reparación S.A. de C.V.</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Sistema de Registro Contable</h1>
+        <h1>Sistema de Registro Contable - Mr. Reparación S.A. de C.V.</h1>
         
         <div class="tabs">
             <div class="tab active" data-tab="diario">Libro Diario</div>
             <div class="tab" data-tab="mayor">Libro Mayor (Cuentas T)</div>
             <div class="tab" data-tab="balanza">Balanza de Comprobación</div>
             <div class="tab" data-tab="balance">Balance General</div>
+            <div class="tab" data-tab="estado">Estado de Resultados</div>
+            <div class="tab" data-tab="cambios">Estado de Cambios</div>
+            <div class="tab" data-tab="efectivo">Flujo de Efectivo</div>
             <div class="tab" data-tab="catalogo">Catálogo de Cuentas</div>
         </div>
         
         <div id="diario" class="tab-content active">
-            <h2>Registro de Operaciones (Libro Diario)</h2>
+            <h2>Mr. Reparación S.A. de C.V.<br><span class="dynamic-title">Libro Diario del 1 de enero de 2025 al </span><span class="current-date"></span></h2>
             
             <div class="form-group">
                 <div class="form-row">
                     <div style="flex: 1;">
                         <label for="fecha">Fecha:</label>
-                        <input type="date" id="fecha" required>
+                        <input type="date" id="fecha" min="2025-01-01" required>
                     </div>
                     <div style="flex: 3;">
                         <label for="descripcion">Descripción de la operación:</label>
@@ -87,14 +90,14 @@
         </div>
         
         <div id="mayor" class="tab-content">
-            <h2>Libro Mayor (Cuentas T)</h2>
+            <h2>Mr. Reparación S.A. de C.V.<br><span class="dynamic-title">Libro Mayor (Cuentas T) del 1 de enero de 2025 al </span><span class="current-date"></span></h2>
             <div class="cuentas-t" id="cuentas-t-container">
                 <!-- Se llenará con JavaScript -->
             </div>
         </div>
         
         <div id="balanza" class="tab-content">
-            <h2>Balanza de Comprobación</h2>
+            <h2>Mr. Reparación S.A. de C.V.<br><span class="dynamic-title">Balanza de Comprobación del 1 de enero de 2025 al </span><span class="current-date"></span></h2>
             <table id="balanza-table">
                 <thead>
                     <tr>
@@ -121,14 +124,35 @@
         </div>
         
         <div id="balance" class="tab-content">
-            <h2>Balance General</h2>
+            <h2>Mr. Reparación S.A. de C.V.<br><span class="dynamic-title">Balance General del 1 de enero de 2025 al </span><span class="current-date"></span></h2>
             <div id="balance-container">
                 <!-- Se llenará con JavaScript -->
             </div>
         </div>
+        
+        <div id="estado" class="tab-content">
+            <h2>Mr. Reparación S.A. de C.V.<br><span class="dynamic-title">Estado de Resultados del 1 de enero de 2025 al </span><span class="current-date"></span></h2>
+            <div id="estado-resultados-container">
+                <!-- Se llenará con JavaScript -->
+            </div>
+        </div>
+        
+        <div id="cambios" class="tab-content">
+            <h2>Mr. Reparación S.A. de C.V.<br><span class="dynamic-title">Estado de Cambios de capital contable del 1 de enero de 2025 al </span><span class="current-date"></span></h2>
+            <div id="estado-cambios-flujos-container">
+                <!-- Se llenará con JavaScript -->
+            </div>
+        </div>
 
+        <div id="efectivo" class="tab-content">
+            <h2>Mr. Reparación S.A. de C.V.<br><span class="dynamic-title">Estado de Cambios de Flujo de Efectivo del 1 de enero de 2025 al </span><span class="current-date"></span></h2>
+            <div id="estado-flujo-efectivo-container">
+                <!-- Se llenará con JavaScript -->
+            </div>
+        </div>
+        
         <div id="catalogo" class="tab-content">
-            <h2>Catálogo de Cuentas</h2>
+            <h2>Catálogo de Cuentas - Mr. Reparación S.A. de C.V.</h2>
             <div class="form-group">
                 <div class="form-row">
                     <div style="flex: 1;">
@@ -173,7 +197,37 @@
             </div>
         </div>
     </div>
-
+    
     <script type="module" src="./JS/main.js"></script>
+    <script>
+        // Función para formatear la fecha actual en español
+        function getCurrentDateFormatted() {
+            const today = new Date();
+            const day = today.getDate();
+            const month = today.toLocaleString('es', { month: 'long' });
+            const year = today.getFullYear();
+            return `${day} de ${month} de ${year}`;
+        }
+
+        // Función para establecer la fecha máxima en el input de fecha
+        function setMaxDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Mes empieza en 0
+            const day = String(today.getDate()).padStart(2, '0');
+            const maxDate = `${year}-${month}-${day}`;
+            document.getElementById('fecha').setAttribute('max', maxDate);
+        }
+
+        // Actualizar todas las fechas dinámicas en los títulos
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentDateElements = document.querySelectorAll('.current-date');
+            const currentDate = getCurrentDateFormatted();
+            currentDateElements.forEach(element => {
+                element.textContent = currentDate;
+            });
+            setMaxDate(); // Establecer la fecha máxima en el input
+        });
+    </script>
 </body>
 </html>

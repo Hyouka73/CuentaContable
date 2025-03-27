@@ -18,6 +18,14 @@ export let catalogoCuentas = [
     { codigo: '1.2.6', nombre: 'Equipo de Transporte', tipo: 'activo', subtipo: 'noCirculante' },
     { codigo: '1.2.7', nombre: 'Depósitos en Garantía', tipo: 'activo', subtipo: 'noCirculante' },
     { codigo: '1.2.8', nombre: 'Herramientas', tipo: 'activo', subtipo: 'noCirculante' },
+    { codigo: '1.2.9', nombre: 'Depreciación Acumulada de Edificios', tipo: 'activo', subtipo: 'noCirculante' },
+    { codigo: '1.2.10', nombre: 'Depreciación Acumulada de Mobiliario y Equipo', tipo: 'activo', subtipo: 'noCirculante' },
+    { codigo: '1.2.11', nombre: 'Depreciación Acumulada de Equipo de Cómputo', tipo: 'activo', subtipo: 'noCirculante' },
+    { codigo: '1.2.12', nombre: 'Depreciación Acumulada de Equipo de Transporte', tipo: 'activo', subtipo: 'noCirculante' },
+    { codigo: '1.2.13', nombre: 'Depreciación Acumulada de Herramientas', tipo: 'activo', subtipo: 'noCirculante' },
+    { codigo: '1.2.14', nombre: 'Depreciación Acumulada de Maquinaria', tipo: 'activo', subtipo: 'noCirculante' },
+    { codigo: '1.2.15', nombre: 'Maquinaria', tipo: 'activo', subtipo: 'noCirculante' },
+    { codigo: '1.2.16', nombre: 'Depreciación Acumulada de Propaganda y Publicidad', tipo: 'activo', subtipo: 'noCirculante' },
     { codigo: '1.3.1', nombre: 'Papelería y Útiles', tipo: 'activo', subtipo: 'noCirculante' },
     { codigo: '1.3.2', nombre: 'Propaganda y Publicidad', tipo: 'activo', subtipo: 'noCirculante' },
     { codigo: '1.3.3', nombre: 'Primas de Seguro', tipo: 'activo', subtipo: 'noCirculante' },
@@ -48,13 +56,15 @@ export let catalogoCuentas = [
     { codigo: '4.1.7', nombre: 'Gastos de Administración', tipo: 'gastos' },
     { codigo: '4.1.8', nombre: 'Otros Gastos', tipo: 'gastos' },
     { codigo: '4.1.9', nombre: 'Pérdidas por Deterioro de Activos', tipo: 'gastos' },
+    { codigo: '4.1.10', nombre: 'Gastos Generales', tipo: 'gastos' },
+    { codigo: '4.1.13', nombre: 'Costo de Ventas', tipo: 'gastos' },
     { codigo: '5.1.1', nombre: 'Ventas', tipo: 'ingresos' },
     { codigo: '5.1.2', nombre: 'Devoluciones sobre Compra', tipo: 'ingresos' },
     { codigo: '5.1.3', nombre: 'Rebajas sobre Compra', tipo: 'ingresos' },
     { codigo: '5.1.4', nombre: 'Descuentos sobre Compra', tipo: 'ingresos' },
     { codigo: '5.1.5', nombre: 'Otros Ingresos', tipo: 'ingresos' },
     { codigo: '5.1.6', nombre: 'IVA Trasladado', tipo: 'pasivo', subtipo: 'cortoPlazo' },
-    { codigo: '5.1.7', nombre: 'IVA por Trasladar', tipo: 'pasivo', subtipo: 'cortoPlazo'}
+    { codigo: '5.1.7', nombre: 'IVA por Trasladar', tipo: 'pasivo', subtipo: 'cortoPlazo' }
 ];
 
 export function buscarCuentasPorCodigo(codigo) {
