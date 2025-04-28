@@ -44,7 +44,7 @@ function obtenerActivoConDepreciacion(cuenta) {
 export function generarBalanceGeneral() {
     // Calcular utilidad antes de generar el balance
     calcularUtilidad();
-
+    limpiar();
     const balanceContainer = document.getElementById('balance-container');
     balanceContainer.innerHTML = '';
 
@@ -96,6 +96,8 @@ export function generarBalanceGeneral() {
 
     // Agregar utilidad/pérdida al capital
     const utilidadNeta = utilidadNetaTotal();
+
+    // Agregar la nueva utilidad/pérdida
     balanceData.capital.ganado.push({
         cuenta: {
             codigo: '3.2.1',
@@ -332,4 +334,14 @@ function alinearEncabezados() {
             }
         });
     }, 0);
+}
+
+export function limpiar() {
+    // Limpiar balanceData
+    balanceData.activo.circulante = [];
+    balanceData.activo.noCirculante = [];
+    balanceData.pasivo.cortoPlazo = [];
+    balanceData.pasivo.largoPlazo = [];
+    balanceData.capital.contribuido = [];
+    balanceData.capital.ganado = [];
 }
