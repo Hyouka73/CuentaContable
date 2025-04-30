@@ -466,3 +466,48 @@ button:hover {
 .estado-resultados-cuatro-columnas td.con-borde {
   border-bottom: 1px solid #000 !important;
 }
+
+/* Estilos para el pie de página */
+.footer-container {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+  display: none; /* Oculto por defecto */
+}
+
+.tab-content.active ~ .footer-container {
+  display: block; /* Mostrar solo cuando hay una pestaña activa */
+}
+
+#catalogo.active ~ .footer-container {
+  display: none; /* Ocultar específicamente para el catálogo */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-left, .footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.footer-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.footer-name {
+  text-align: center;
+  border-top: 1px solid #000;
+  padding-top: 5px;
+  width: 100%;
+  max-width: 300px;
+}
