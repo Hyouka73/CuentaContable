@@ -1,132 +1,212 @@
 import { formatearNumero, obtenerSaldoCuenta } from './utils.js';
 
-let utilidadNetaCalculada = 0;
-
-// Nueva función para inicializar y calcular la utilidad neta
-export function calcularUtilidad() {
-    // Obtener valores con signos naturales
-    const ventas = obtenerSaldoCuenta('5.1.1');
-    const devolVentas = obtenerSaldoCuenta('4.1.3');
-    const rebajasVentas = obtenerSaldoCuenta('4.1.4');
-    const descuentosVentas = obtenerSaldoCuenta('4.1.5');
-
-    const ventasNetas = ventas - (devolVentas + rebajasVentas + descuentosVentas);
-    const costoVentas = obtenerSaldoCuenta('4.1.13');
-    const gastosGenerales = obtenerGastosGenerales();
-
-    const utilidadBruta = ventasNetas - costoVentas;
-    utilidadNetaCalculada = utilidadBruta - gastosGenerales;
-    
-    return utilidadNetaCalculada;
-}
-
 export function generarEstadoResultados() {
-    // Asegurar que la utilidad esté calculada
-    calcularUtilidad();
-
     const estadoContainer = document.getElementById('estado-resultados-container');
     estadoContainer.innerHTML = '';
 
-    // Obtener valores manteniendo sus signos naturales
-    const ventas = obtenerSaldoCuenta('5.1.1');
-    const devolVentas = obtenerSaldoCuenta('4.1.3');
-    const rebajasVentas = obtenerSaldoCuenta('4.1.4');
-    const descuentosVentas = obtenerSaldoCuenta('4.1.5');
-
-    // Calcular ventas netas
-    const ventasNetas = ventas - (devolVentas + rebajasVentas + descuentosVentas);
-
-    // Obtener costo de ventas
-    const costoVentas = Math.abs(obtenerSaldoCuenta('4.1.13'));
-
-    // Obtener gastos generales
-    const gastosGenerales = obtenerGastosGenerales();
-
-    // Calcular utilidades
-    const utilidadBruta = ventasNetas - costoVentas;
-    utilidadNetaCalculada = utilidadBruta - gastosGenerales;
-
-    // Crear tabla de estado de resultados
-    const tabla = crearTablaEstadoResultados({
-        ventas,
-        devolVentas,
-        rebajasVentas,
-        descuentosVentas,
-        ventasNetas,
-        costoVentas,
-        utilidadBruta,
-        gastosGenerales,
-        utilidadNeta: utilidadNetaCalculada
-    });
-
-    estadoContainer.appendChild(tabla);
-}
-
-export function utilidadNetaTotal() {
-    return utilidadNetaCalculada;
-}
-
-function obtenerGastosGenerales() {
-    // Sumar todos los gastos generales
-    const gastosArrendamiento = obtenerSaldoCuenta('4.1.10');
-    const gastosPapeleria = obtenerSaldoCuenta('4.1.11');
-    const gastosSeguros = obtenerSaldoCuenta('4.1.12');
-    const gastosVenta = obtenerSaldoCuenta('4.1.6');
-    const gastosAdmin = obtenerSaldoCuenta('4.1.7');
-    const otrosGastos = obtenerSaldoCuenta('4.1.8');
+    // Obtener valores base
+    const ventasTotales = Math.abs(obtenerSaldoCuenta('5.1.1'));
+    const devolVentas = Math.abs(obtenerSaldoCuenta('4.1.3'));
+    const rebajasVentas = Math.abs(obtenerSaldoCuenta('4.1.4'));
+    const descuentosVentas = Math.abs(obtenerSaldoCuenta('4.1.5'));
     
-    return gastosArrendamiento + gastosPapeleria + gastosSeguros + 
-           gastosVenta + gastosAdmin + otrosGastos;
-}
+    const compras = Math.abs(obtenerSaldoCuenta('4.1.1'));
+    const gastosCompras = Math.abs(obtenerSaldoCuenta('4.1.2'));
+    const devolCompras = Math.abs(obtenerSaldoCuenta('5.1.2'));
+    const rebajasCompras = Math.abs(obtenerSaldoCuenta('5.1.3'));
+    const descuentosCompras = Math.abs(obtenerSaldoCuenta('5.1.4'));
 
-function crearTablaEstadoResultados(datos) {
+    // Cálculos según especificaciones
+    const totalDeduccionesVentas = devolVentas + rebajasVentas + descuentosVentas;
+    const ventasNetas = ventasTotales - totalDeduccionesVentas;
+    
+    const comprasTotales = compras + gastosCompras;
+    const totalDeduccionesCompras = devolCompras + rebajasCompras + descuentosCompras;
+    const comprasNetas = comprasTotales - totalDeduccionesCompras;
+    
+    const totalMercancias = comprasNetas;
+    const inventarioFinal = totalMercancias * 0.97; // 97% de las mercancías disponibles
+    const costoVentas = totalMercancias - inventarioFinal;
+    const utilidadBruta = ventasNetas - costoVentas;
+    
+    const gastosOperacion = totalMercancias * 0.01; // 1%
+    const gastosVenta = totalMercancias * 0.02;    // 2%
+    const gastosAdmin = totalMercancias * 0.008;   // 0.8%
+    const totalGastos = gastosOperacion + gastosVenta + gastosAdmin;
+    
+    const utilidadOperacion = utilidadBruta - totalGastos;
+
+    // Crear tabla con 4 columnas
     const tabla = document.createElement('table');
-    tabla.className = 'tabla-estado-resultados';
+    tabla.className = 'estado-resultados-cuatro-columnas';
 
     tabla.innerHTML = `
         <thead>
-            <tr><th colspan="2">Estado de Resultados</th></tr>
+            <tr>
+                <th></th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+            </tr>
         </thead>
         <tbody>
+            <!-- Sección de Ventas -->
             <tr>
-                <td>Ventas Totales</td>
-                <td class="text-right">${formatearNumero(datos.ventas)}</td>
+                <td>Ventas totales</td>
+                <td></td>
+                <td></td>
+                <td>${formatearNumero(ventasTotales)}</td>
+                <td></td>
             </tr>
             <tr>
-                <td>(-) Devoluciones sobre ventas</td>
-                <td class="text-right">${formatearNumero(datos.devolVentas)}</td>
+                <td>Devoluciones sobre ventas</td>
+                <td></td>
+                <td>${formatearNumero(devolVentas)}</td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
-                <td>(-) Rebajas sobre ventas</td>
-                <td class="text-right">${formatearNumero(datos.rebajasVentas)}</td>
+                <td>Rebajas sobre ventas</td>
+                <td></td>
+                <td>${formatearNumero(rebajasVentas)}</td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
-                <td>(-) Descuentos sobre ventas</td>
-                <td class="text-right">${formatearNumero(datos.descuentosVentas)}</td>
+                <td>Descuentos sobre ventas</td>
+                <td></td>
+                <td class="con-borde">${formatearNumero(descuentosVentas)}</td>
+                <td class="con-borde">${formatearNumero(totalDeduccionesVentas)}</td>
+                <td></td>
             </tr>
             <tr class="total">
-                <td>= Ventas Netas</td>
-                <td class="text-right">${formatearNumero(datos.ventasNetas)}</td>
+                <td>Ventas netas</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="con-borde">${formatearNumero(ventasNetas)}</td>
+            </tr>
+            
+            <!-- Sección de Compras -->
+            <tr>
+                <td>Inventario inicial</td>
+                <td></td>
+                <td></td>
+                <td>${formatearNumero(0)}</td>
+                <td></td>
             </tr>
             <tr>
-                <td>(-) Costo de Ventas</td>
-                <td class="text-right">${formatearNumero(datos.costoVentas)}</td>
+                <td>Compras</td>
+                <td>${formatearNumero(compras)}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Gastos de compras</td>
+                <td class="con-borde">${formatearNumero(gastosCompras)}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Compras Totales</td>
+                <td></td>
+                <td>${formatearNumero(comprasTotales)}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>devoluciones sobre compras</td>
+                <td>${formatearNumero(devolCompras)}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>rebajas sobre compras</td>
+                <td>${formatearNumero(rebajasCompras)}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>descuentos sobre compras</td>
+                <td class="con-borde">${formatearNumero(descuentosCompras)}</td>
+                <td class="con-borde">${formatearNumero(totalDeduccionesCompras)}</td>
+                <td></td>
+                <td></td>
             </tr>
             <tr class="total">
-                <td>= Utilidad Bruta</td>
-                <td class="text-right">${formatearNumero(datos.utilidadBruta)}</td>
+                <td>Compras Netas</td>
+                <td></td>
+                <td></td>
+                <td class="con-borde">${formatearNumero(comprasNetas)}</td>
+                <td></td>
+            </tr>
+            
+            <!-- Sección de Costos y Utilidades -->
+            <tr>
+                <td>Total de mercancias disponibles</td>
+                <td></td>
+                <td></td>
+                <td>${formatearNumero(totalMercancias)}</td>
+                <td></td>
             </tr>
             <tr>
-                <td>(-) Gastos de Operación</td>
-                <td class="text-right">${formatearNumero(datos.gastosGenerales)}</td>
+                <td>inventario final</td>
+                <td></td>
+                <td></td>
+                <td class="con-borde">${formatearNumero(inventarioFinal)}</td>
+                <td></td>
+            </tr>
+            <tr class="total">
+                <td>costo de ventas</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="con-borde">${formatearNumero(costoVentas)}</td>
+            </tr>
+            <tr class="total">
+                <td>Utilidad bruta</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>${formatearNumero(utilidadBruta)}</td>
+            </tr>
+            
+            <!-- Sección de Gastos -->
+            <tr>
+                <td>Gastos de Operación</td>
+                <td></td>
+                <td></td>
+                <td>${formatearNumero(gastosOperacion)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Gastos de venta</td>
+                <td></td>
+                <td></td>
+                <td>${formatearNumero(gastosVenta)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Gastos de Administración</td>
+                <td></td>
+                <td></td>
+                <td class="con-borde">${formatearNumero(gastosAdmin)}</td>
+                <td class="con-borde">${formatearNumero(totalGastos)}</td>
             </tr>
             <tr class="total final">
-                <td>= Utilidad o (Pérdida) Neta del Ejercicio</td>
-                <td class="text-right">${formatearNumero(datos.utilidadNeta)}</td>
+                <td>Utilidad por Operación</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>${formatearNumero(utilidadOperacion)}</td>
             </tr>
         </tbody>
     `;
 
-    return tabla;
+    estadoContainer.appendChild(tabla);
 }
-

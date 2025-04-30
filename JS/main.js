@@ -1,13 +1,11 @@
 import { actualizarCatalogoCuentas, actualizarSeleccionCuentas } from './catalogoCuentas.js';
 import { actualizarBalanza } from './balanza.js';
 import { actualizarCuentasT } from './cuentasT.js';
+import { crearFormularioArqueo } from './balance.js'
 import { configurarEventListeners } from './eventListeners.js';
 import { actualizarTotalesRegistro } from './registroOperaciones.js';
 import { mostrarOperaciones } from './operaciones.js';
-import { generarBalanceGeneral } from './balance.js';
 import { generarEstadoResultados } from './estados.js';
-import { generarEstadoCambiosFlujos } from './cambios.js';
-import { generarEstadoFlujoEfectivo } from './efectivo.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar pestañas
@@ -33,14 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (tabId === 'catalogo') {
                 actualizarCatalogoCuentas();
             } else if (tabId === 'balance') {
-                generarBalanceGeneral();
+                crearFormularioArqueo();
             } else if (tabId === 'estado') {
                 generarEstadoResultados();
-            } else if (tabId === 'cambios') {
-                generarEstadoCambiosFlujos();
-            } else if (tabId === 'efectivo') {
-                generarEstadoFlujoEfectivo();
-            }
+            } 
         });
     });
 

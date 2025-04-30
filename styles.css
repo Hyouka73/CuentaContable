@@ -341,3 +341,128 @@ button:hover {
   background-color: #f0f0f0;
   font-weight: bold;
 }
+
+.arqueo-caja {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.arqueo-caja h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.tabla-arqueo {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.tabla-arqueo th, .tabla-arqueo td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.tabla-arqueo th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.tabla-arqueo input {
+  width: 80px;
+  padding: 5px;
+  text-align: center;
+}
+
+.total-denominacion {
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.resultados-arqueo {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.resultado-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.resultado-item:last-child {
+  border-bottom: none;
+}
+
+.diferencia {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.igual {
+  color: #28a745;
+}
+
+.positivo {
+  color: #17a2b8;
+}
+
+.negativo {
+  color: #dc3545;
+}
+
+.estado-resultados-cuatro-columnas {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.estado-resultados-cuatro-columnas th,
+.estado-resultados-cuatro-columnas td {
+  padding: 8px 12px;
+  text-align: right;
+  border: 1px solid #ddd;
+}
+
+.estado-resultados-cuatro-columnas th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: center;
+}
+
+.estado-resultados-cuatro-columnas td:first-child {
+  text-align: left;
+  font-weight: bold;
+}
+
+.estado-resultados-cuatro-columnas tr.total td {
+  font-weight: bold;
+  background-color: #f9f9f9;
+}
+
+.estado-resultados-cuatro-columnas tr.total.final td {
+  background-color: #e6f7ff;
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+}
+
+/* Resaltar filas importantes */
+.estado-resultados-cuatro-columnas tr.total.final td:last-child {
+  font-size: 1.1em;
+  color: #0066cc;
+}
+
+/* Nueva clase para celdas con borde inferior */
+.estado-resultados-cuatro-columnas td.con-borde {
+  border-bottom: 1px solid #000 !important;
+}
